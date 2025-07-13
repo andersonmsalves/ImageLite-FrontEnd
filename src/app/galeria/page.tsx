@@ -37,14 +37,21 @@ export default function GaleriaPage() {
     console.table(result);
   }
 
-  function renderImageCard(image: Image) {
+  function renderImageCard({
+    url,
+    name,
+    size,
+    extension = "",
+    uploadDate,
+  }: Image) {
     return (
       <ImageCard
-        key={image.url}
-        nome={image.name}
-        src={image.url}
-        tamanho={`${image.size}`}
-        dataUpload={image.uploadDate}
+        key={url}
+        nome={name}
+        src={url}
+        tamanho={size}
+        extension={extension}
+        dataUpload={uploadDate}
       />
     );
   }

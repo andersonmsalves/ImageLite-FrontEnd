@@ -2,8 +2,9 @@
 
 interface ImageCardProps {
   nome?: string;
-  tamanho?: string;
+  tamanho?: number;
   dataUpload?: string;
+  extension?: string;
   src?: string;
 }
 
@@ -11,10 +12,23 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   nome,
   tamanho,
   dataUpload,
+  extension,
   src,
 }: ImageCardProps) => {
   function download() {
     window.open(src, "_blank");
+  }
+
+  function formatBytes(bytes: number = 0, decimals = 2) {
+    if (!+bytes) return " Bytes";
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
   }
 
   return (
@@ -26,8 +40,8 @@ export const ImageCard: React.FC<ImageCardProps> = ({
         onClick={download}
       />
       <div className="card-body p-4">
-        <h5 className="text-xl font-semibold mb-2 text-gray-600">{nome}</h5>
-        <p className="text-gray-600">{tamanho}</p>
+        <h5 className="text-xl font-semibold mb-2 text-gray-600">{`${nome}.${extension}`}</h5>
+        <p className="text-gray-600">{formatBytes(tamanho)}</p>
         <p className="text-gray-600">{dataUpload}</p>
       </div>
     </div>
