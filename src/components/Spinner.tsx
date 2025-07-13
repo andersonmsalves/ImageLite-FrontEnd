@@ -1,53 +1,6 @@
-import React from "react";
-
-interface TemplateProps {
-  children: React.ReactNode;
-  loading?: boolean;
-}
-
-export const Template: React.FC<TemplateProps> = ({
-  children,
-  loading,
-}: TemplateProps) => {
-  const baseDivCss = "container mx-auto mt-8 px-4";
-  const withAnimateCss = `${baseDivCss} animate-pulse`;
+export const CustomSpinner = () => {
   return (
-    <>
-      <Header />
-
-      <div className={loading ? withAnimateCss : baseDivCss}>
-        {loading && <Loading />}
-        {children}
-      </div>
-
-      <Footer />
-    </>
-  );
-};
-
-export const Header: React.FC = () => {
-  return (
-    <header className="bg-indigo-950 text-white py-3">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-3x1 font-bold">ImageLite</h1>
-      </div>
-    </header>
-  );
-};
-
-export const Footer: React.FC = () => {
-  return (
-    <footer className="bg-indigo-950 text-white py-4 mt-8">
-      <div className="container mx-auto text-center">
-        Desenvolvido por Anderson Alves
-      </div>
-    </footer>
-  );
-};
-
-export const Loading: React.FC = () => {
-  return (
-    <div className="animate-pulse text-center">
+    <div className="text-center">
       <div role="status">
         <svg
           aria-hidden="true"
@@ -65,6 +18,7 @@ export const Loading: React.FC = () => {
             fill="currentFill"
           />
         </svg>
+        <span className="sr-only">Loading...</span>
       </div>
     </div>
   );

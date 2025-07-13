@@ -14,6 +14,7 @@ export default function GaleriaPage() {
     "https://randomwordgenerator.com/img/picture-generator/52e0d1404256a914f1dc8460962e33791c3ad6e04e507440742f7cd7904dc5_640.jpg",
   ];
 
+  const [loadingData, setLoadingData] = useState<boolean>(false);
   const [imagesDB, setImagesDB] = useState<Image[]>([]);
 
   const [query, setQuery] = useState<string>("");
@@ -32,8 +33,10 @@ export default function GaleriaPage() {
 
   async function searchImages() {
     console.log("query: " + query);
+    setLoadingData(true);
     const result = await useService.buscar(query, extension);
     setImagesDB(result);
+    setLoadingData(false);
     console.table(result);
   }
 
@@ -62,7 +65,7 @@ export default function GaleriaPage() {
 
   return (
     <>
-      <Template>
+      <Template loading={loadingData}>
         <div className="container mx-auto mt-8 px-4">
           {/*<button
             className="bg-gray-500 rounded-md mb-3 p-1"
@@ -94,12 +97,12 @@ export default function GaleriaPage() {
                 <option value="GIF">GIF</option>
               </select>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-300"
                 onClick={searchImages}
               >
                 Search
               </button>
-              <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg">
+              <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-300">
                 Add New
               </button>
             </div>
