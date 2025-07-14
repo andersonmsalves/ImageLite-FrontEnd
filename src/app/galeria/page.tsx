@@ -4,6 +4,9 @@ import { Template, ImageCard } from "@/components";
 import { useImageService } from "@/resources/image/image.service";
 import { useState } from "react";
 import { Image } from "@/resources/image/image.resource";
+import Link from "next/link";
+import { Button } from "@/components/button";
+import { InputText } from "@/components/input/InputText";
 
 export default function GaleriaPage() {
   // https://randomwordgenerator.com/picture.php
@@ -81,11 +84,10 @@ export default function GaleriaPage() {
           </button>*/}
           <section className="flex flex-col items-center justify-center my-5">
             <div className="flex space-x-4">
-              <input
+              <InputText
                 name="query"
+                placeholder="Search term"
                 onChange={(event) => setQuery(event.target.value)}
-                type="text"
-                className="border px-3 py-2 rounded-lg text-gray-900"
               />
               <select
                 className="border px-4 py-2 rounded-lg text-gray-900"
@@ -96,15 +98,10 @@ export default function GaleriaPage() {
                 <option value="JPEG">JPEG</option>
                 <option value="GIF">GIF</option>
               </select>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-300"
-                onClick={searchImages}
-              >
-                Search
-              </button>
-              <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-300">
-                Add New
-              </button>
+              <Button color="blue" label="Search" onClick={searchImages} />
+              <Link href="/formulario">
+                <Button color="yellow" label="Add New" />
+              </Link>
             </div>
           </section>
 
