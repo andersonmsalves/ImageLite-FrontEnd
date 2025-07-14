@@ -5,9 +5,11 @@ interface InputTextProps {
   style?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  id?: string;
 }
 
 export const InputText: React.FC<InputTextProps> = ({
+  id,
   name,
   style,
   placeholder,
@@ -15,6 +17,7 @@ export const InputText: React.FC<InputTextProps> = ({
 }: InputTextProps) => {
   return (
     <input
+      id={id}
       name={name}
       placeholder={placeholder}
       onChange={onChange}

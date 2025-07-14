@@ -25,6 +25,22 @@ export const Template: React.FC<TemplateProps> = ({
   );
 };
 
+interface RenderIfProps {
+  condition?: boolean;
+  children: React.ReactNode;
+}
+
+export const RenderIf: React.FC<RenderIfProps> = ({
+  condition = true,
+  children,
+}: RenderIfProps) => {
+  if (condition) {
+    return children;
+  }
+
+  return false;
+};
+
 export const Header: React.FC = () => {
   return (
     <header className="bg-indigo-950 text-white py-3">

@@ -100,7 +100,7 @@ export default function GaleriaPage() {
               </select>
               <Button color="blue" label="Search" onClick={searchImages} />
               <Link href="/formulario">
-                <Button color="yellow" label="Add New" />
+                <Button color="gray" label="Add New" />
               </Link>
             </div>
           </section>
