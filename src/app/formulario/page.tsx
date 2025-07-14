@@ -1,5 +1,7 @@
 import { Template } from "@/components";
 import { InputText } from "@/components/input/InputText";
+import { Button } from "@/components/button";
+import Link from "next/link";
 
 export default function FormularioPage() {
   return (
@@ -49,6 +51,13 @@ export default function FormularioPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-3 flex items-center justify-end gap-x-3">
+            <Button style="bg-blue-500 hover:bg-blue-300" label="Save" />
+            <Link href="/galeria">
+              <Button style="bg-red-500 hover:bg-red-300" label="Cancel" />
+            </Link>
           </div>
         </form>
       </section>
