@@ -2,24 +2,13 @@
 
 import { Template, RenderIf, useNotification } from "@/components";
 import { InputText } from "@/components/input/InputText";
+import { FieldError } from "@/components/input/FieldError";
 import { Button } from "@/components/button";
-import Link from "next/link";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useImageService } from "@/resources/image/image.service";
-
-interface FormProps {
-  name: string;
-  tags: string;
-  file: any;
-}
-
-// Definindo valores padrão
-const formScheme: FormProps = {
-  name: "",
-  tags: "",
-  file: "",
-};
+import { FormProps, formScheme, formValidationSchema } from "./formScheme";
+import Link from "next/link";
 
 export default function FormularioPage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,6 +19,7 @@ export default function FormularioPage() {
   const formik = useFormik<FormProps>({
     initialValues: formScheme,
     onSubmit: handleSubmit,
+    validationSchema: formValidationSchema,
   });
 
   async function handleSubmit(dados: FormProps) {
@@ -75,6 +65,7 @@ export default function FormularioPage() {
               onChange={formik.handleChange}
               placeholder="type the image's name"
             />
+            <FieldError message={formik.errors.name} />
           </div>
 
           <div className="mt-5 grid grid-cols-1">
@@ -87,12 +78,14 @@ export default function FormularioPage() {
               onChange={formik.handleChange}
               placeholder="type the tags comma separated"
             />
+            <FieldError message={formik.errors.tags} />
           </div>
 
           <div className="mt-5 grid grid-cols-1">
             <label className="block text-sm font-medium leading-6 text-gray-700">
               Image: *
             </label>
+            <FieldError message={formik.errors.file} />
             <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-800 px-6 py-10">
               <div className="text-center">
                 <RenderIf condition={!imagePreview}>
