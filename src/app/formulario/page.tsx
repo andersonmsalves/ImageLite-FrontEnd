@@ -1,6 +1,6 @@
 "use client";
 
-import { Template, RenderIf } from "@/components";
+import { Template, RenderIf, useNotification } from "@/components";
 import { InputText } from "@/components/input/InputText";
 import { Button } from "@/components/button";
 import Link from "next/link";
@@ -25,6 +25,7 @@ export default function FormularioPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string>("");
   const service = useImageService();
+  const notification = useNotification();
 
   const formik = useFormik<FormProps>({
     initialValues: formScheme,
@@ -42,6 +43,8 @@ export default function FormularioPage() {
     formik.resetForm();
     setImagePreview("");
     setLoading(false);
+
+    notification.notify("Upload send success", "success");
   }
 
   function onFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
