@@ -6,6 +6,7 @@ interface InputTextProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   id?: string;
+  value?: string;
 }
 
 export const InputText: React.FC<InputTextProps> = ({
@@ -13,6 +14,7 @@ export const InputText: React.FC<InputTextProps> = ({
   name,
   style,
   placeholder,
+  value,
   onChange,
 }: InputTextProps) => {
   return (
@@ -21,6 +23,7 @@ export const InputText: React.FC<InputTextProps> = ({
       name={name}
       placeholder={placeholder}
       onChange={onChange}
+      value={value}
       type="text"
       className="border px-3 py-2 rounded-lg text-gray-900"
     />

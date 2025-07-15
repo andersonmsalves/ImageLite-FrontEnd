@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useImageService } from "@/resources/image/image.service";
 
 interface FormProps {
   name: string;
@@ -21,14 +22,27 @@ const formScheme: FormProps = {
 };
 
 export default function FormularioPage() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string>("");
+  const service = useImageService();
 
   const formik = useFormik<FormProps>({
     initialValues: formScheme,
-    onSubmit: (dados: FormProps) => {
-      console.log(dados);
-    },
+    onSubmit: handleSubmit,
   });
+
+  async function handleSubmit(dados: FormProps) {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", dados.file);
+    formData.append("name", dados.name);
+    formData.append("tags", dados.tags);
+
+    await service.salvar(formData);
+    formik.resetForm();
+    setImagePreview("");
+    setLoading(false);
+  }
 
   function onFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
     console.log("onFileUpload: ");
@@ -42,7 +56,7 @@ export default function FormularioPage() {
   }
 
   return (
-    <Template>
+    <Template loading={loading}>
       <section className="flex flex-col items-center justify-center my-5">
         <h5 className="mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">
           Nova Imagem
@@ -53,6 +67,7 @@ export default function FormularioPage() {
               Name: *
             </label>
             <InputText
+              value={formik.values.name}
               id="name"
               onChange={formik.handleChange}
               placeholder="type the image's name"
@@ -64,6 +79,7 @@ export default function FormularioPage() {
               Tags: *
             </label>
             <InputText
+              value={formik.values.tags}
               id="tags"
               onChange={formik.handleChange}
               placeholder="type the tags comma separated"
