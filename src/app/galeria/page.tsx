@@ -1,6 +1,6 @@
 "use client";
 
-import { Template, ImageCard } from "@/components";
+import { Template, ImageCard, useNotification } from "@/components";
 import { useImageService } from "@/resources/image/image.service";
 import { useState } from "react";
 import { Image } from "@/resources/image/image.resource";
@@ -26,6 +26,7 @@ export default function GaleriaPage() {
   const [indexImage, setIndexImage] = useState<number>(0); // valor inicial
   const [urlImage, setUrlImage] = useState<string>(images[0]); // Array de dois elementos.
   const useService = useImageService();
+  const notification = useNotification();
 
   function mudarImagem() {
     if (indexImage < 4) setIndexImage(indexImage + 1);
@@ -40,7 +41,11 @@ export default function GaleriaPage() {
     const result = await useService.buscar(query, extension);
     setImagesDB(result);
     setLoadingData(false);
-    console.table(result);
+
+    if (!result.length) {
+      notification.notify("No results found!", "warning");
+    }
+    //console.table(result);
   }
 
   function renderImageCard({
