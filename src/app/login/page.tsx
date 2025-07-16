@@ -1,16 +1,24 @@
 "use client";
 
-import { Template, RenderIf } from "@/components";
+import { Template, RenderIf, useNotification } from "@/components";
 import { InputText } from "@/components/input/InputText";
 import { Button } from "@/components/button";
 import { FieldError } from "@/components/input/FieldError";
 import { useState } from "react";
 import { formScheme, LoginForm, validationScheme } from "./formScheme";
 import { useFormik } from "formik";
+import { useAuth } from "@/resources";
+import { useRouter } from "next/navigation";
+import { Credentials } from "@/resources/user/users.resource";
+import { AccessToken } from "@/resources/user/users.resource";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [newUserState, setNewUserState] = useState<boolean>(false);
+
+  const auth = useAuth();
+  const notification = useNotification();
+  const router = useRouter();
 
   const { values, handleChange, handleSubmit, errors } = useFormik<LoginForm>({
     initialValues: formScheme,
@@ -19,7 +27,21 @@ export default function LoginPage() {
   });
 
   async function onsubmit(values: LoginForm) {
-    console.log(values);
+    //console.log(values);
+    if (!newUserState) {
+      const credentials: Credentials = {
+        email: values.email,
+        password: values.password,
+      };
+
+      try {
+        const accessToken = await auth.authenticate(credentials);
+        router.push("/galeria");
+      } catch (error: any) {
+        const message = error?.message;
+        notification.notify(message, "error");
+      }
+    }
   }
 
   return (

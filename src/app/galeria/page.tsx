@@ -1,7 +1,7 @@
 "use client";
 
 import { Template, ImageCard, useNotification } from "@/components";
-import { useImageService } from "@/resources/image/image.service";
+import { useImageService } from "@/resources";
 import { useState } from "react";
 import { Image } from "@/resources/image/image.resource";
 import Link from "next/link";
