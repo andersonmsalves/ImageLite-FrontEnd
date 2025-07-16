@@ -23,6 +23,24 @@ class AuthService {
     }
     return await response.json();
   }
+
+  async save(user: User): Promise<void> {
+    const response = await fetch(this.baseURL, {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Response auth.save: " + JSON.stringify(response));
+
+    if (response.status == 409) {
+      throw new Error("User already exists!");
+    }
+
+    //return await response.json(); // because the method was declared as void return.
+  }
 }
 
 export const useAuth = () => new AuthService();
