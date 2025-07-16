@@ -7,6 +7,7 @@ interface InputTextProps {
   placeholder?: string;
   id?: string;
   value?: string;
+  type?: string;
 }
 
 export const InputText: React.FC<InputTextProps> = ({
@@ -15,6 +16,7 @@ export const InputText: React.FC<InputTextProps> = ({
   style,
   placeholder,
   value,
+  type = "text",
   onChange,
 }: InputTextProps) => {
   return (
@@ -24,7 +26,7 @@ export const InputText: React.FC<InputTextProps> = ({
       placeholder={placeholder}
       onChange={onChange}
       value={value}
-      type="text"
+      type={type}
       className="border px-3 py-2 rounded-lg text-gray-900"
     />
   );
