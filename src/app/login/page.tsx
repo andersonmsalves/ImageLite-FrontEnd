@@ -38,6 +38,7 @@ export default function LoginPage() {
       try {
         const accessToken = await auth.authenticate(credentials);
         auth.initSession(accessToken);
+        console.log("Sessão esta válida: ", auth.isSessionValid());
         router.push("/galeria");
       } catch (error: any) {
         const message = error?.message;
