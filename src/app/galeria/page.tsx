@@ -7,6 +7,7 @@ import { Image } from "@/resources/image/image.resource";
 import Link from "next/link";
 import { Button } from "@/components/button";
 import { InputText } from "@/components/input/InputText";
+import { AuthenticatePage } from "@/components";
 
 export default function GaleriaPage() {
   // https://randomwordgenerator.com/picture.php
@@ -72,7 +73,7 @@ export default function GaleriaPage() {
   }
 
   return (
-    <>
+    <AuthenticatePage>
       <Template loading={loadingData}>
         <div className="container mx-auto mt-8 px-4">
           {/*<button
@@ -116,6 +117,6 @@ export default function GaleriaPage() {
           </section>
         </div>
       </Template>
-    </>
+    </AuthenticatePage>
   );
 }
