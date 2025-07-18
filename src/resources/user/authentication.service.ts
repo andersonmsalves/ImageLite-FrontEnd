@@ -68,7 +68,15 @@ class AuthService {
   }
 
   getUserSession(): UserSessionToken | null {
-    const authString = localStorage.getItem(AuthService.AUTH_PARAM);
+    let authString;
+
+    try {
+      authString = localStorage.getItem(AuthService.AUTH_PARAM);
+    } catch (error) {
+      console.warn("Error: " + error);
+      return null;
+    }
+
     if (!authString) {
       return null;
     }
